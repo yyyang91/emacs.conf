@@ -12,6 +12,7 @@
 	company
 	hungry-delete
 	treemacs
+	;; window-numbering
 	swiper
 	counsel
 	smartparens
@@ -23,6 +24,7 @@
 	;; --- Themes ---
 	monokai-theme
 	;; solarized-theme
+	lsp-mode
 	) "Default packages")
 
 (setq package-selected-packages my/packages)
@@ -41,6 +43,7 @@
 
 
 (global-set-key (kbd "<f2>") 'open-init-file)
+(global-set-key (kbd "<f3>") 'treemacs)
 
 (global-linum-mode t)
 (global-company-mode t)
@@ -51,6 +54,17 @@
 (interactive)
 (find-file "~/.emacs.d/init.el"))
 
-;; (setq evil-mode 1)
+(setq evil-mode 1)
 ;; no backup files
 (setq make-backup-files nil)
+
+(add-to-list 'load-path "~/.emacs.d/locale")
+
+(require 'window-numbering)
+(defun window-numbering-get-number-string (&optional window)
+  (let ((s (int-to-string (window-numbering-get-number window))))
+    (propertize (concat " " s " ") 'face 'window-numbering-face)))
+(window-numbering-mode 1)
+
+(require 'evil)
+(evil-mode t)
