@@ -1,8 +1,8 @@
 (require 'package)
 (package-initialize)
-(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-		      ("melpa" . "http://elpa.emacs-china.org/melpa/")))
-
+(setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                         ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 (require 'cl-lib)
 
@@ -25,6 +25,7 @@
 	monokai-theme
 	;; solarized-theme
 	lsp-mode
+	use-package
 	) "Default packages")
 
 (setq package-selected-packages my/packages)
@@ -58,13 +59,19 @@
 ;; no backup files
 (setq make-backup-files nil)
 
+(use-package org
+  :ensure nil
+  :config
+  (setq org-latex-pdf-process '("tectonic -Z shell-escape %f"))
+  (setq org-latex-listings 'minted)
+  (add-to-list 'org-latex-packages-alist '("" "minted")
+)
+)
+
+
 (add-to-list 'load-path "~/.emacs.d/locale")
 
-(require 'window-numbering)
-(defun window-numbering-get-number-string (&optional window)
-  (let ((s (int-to-string (window-numbering-get-number window))))
-    (propertize (concat " " s " ") 'face 'window-numbering-face)))
-(window-numbering-mode 1)
+
 
 (require 'evil)
 (evil-mode t)
