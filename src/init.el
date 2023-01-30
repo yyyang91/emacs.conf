@@ -26,6 +26,7 @@
 	;; solarized-theme
 	lsp-mode
 	use-package
+        htmlize
 	) "Default packages")
 
 (setq package-selected-packages my/packages)
@@ -63,6 +64,11 @@
 (setq recentf-max-menu-items 25)
 (setq recentf-max-saved-items 25)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+(require 'htmlize)
+(setq org-src-fontify-natively t)
+;;在输出html的时候，code source 高亮
+
 
 (use-package org
   :ensure nil
